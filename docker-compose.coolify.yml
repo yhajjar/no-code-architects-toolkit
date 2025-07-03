@@ -18,7 +18,7 @@ services:
       - GCP_BUCKET_NAME=${GCP_BUCKET_NAME}
       - STORAGE_PATH=${STORAGE_PATH}
     ports:
-      - "8080:8080"
+      - "8088:8080"
     volumes:
       - storage:/var/www/html/storage/app
       - logs:/var/www/html/storage/logs
