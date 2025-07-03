@@ -1,8 +1,22 @@
 services:
   ncat:
     image: stephengpope/no-code-architects-toolkit:latest
-    env_file:
-      - .env
+    environment:
+      - API_KEY=${API_KEY}
+      - APP_NAME=${APP_NAME:-NCAToolkit}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - MAX_QUEUE_LENGTH=${MAX_QUEUE_LENGTH:-10}
+      - GUNICORN_WORKERS=${GUNICORN_WORKERS:-4}
+      - GUNICORN_TIMEOUT=${GUNICORN_TIMEOUT:-300}
+      - LOCAL_STORAGE_PATH=${LOCAL_STORAGE_PATH:-/tmp}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_KEY=${S3_SECRET_KEY}
+      - S3_ENDPOINT_URL=${S3_ENDPOINT_URL}
+      - S3_REGION=${S3_REGION}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - GCP_SA_CREDENTIALS=${GCP_SA_CREDENTIALS}
+      - GCP_BUCKET_NAME=${GCP_BUCKET_NAME}
+      - STORAGE_PATH=${STORAGE_PATH}
     ports:
       - "8080:8080"
     volumes:

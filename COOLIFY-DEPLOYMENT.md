@@ -40,9 +40,14 @@ Edit `.env` and configure:
 1. **Create New Resource** in Coolify dashboard
 2. **Select "Docker Compose"** as the deployment type
 3. **Upload or paste** the contents of `docker-compose.coolify.yml`
-4. **Configure Environment Variables** using your `.env` file values
+4. **Configure Environment Variables** in Coolify's environment section:
+   - Set `API_KEY` to your secure API key (REQUIRED)
+   - Configure storage variables (S3 or GCP) as needed
+   - Adjust performance settings if desired
 5. **Set Domain** in Coolify's domain settings
 6. **Deploy** the application
+
+**Important**: Do not use `.env` files with Coolify. Instead, set environment variables directly in Coolify's interface.
 
 ### 3. Coolify Configuration
 
@@ -104,20 +109,29 @@ LOCAL_STORAGE_PATH=/tmp
 
 ### Common Issues
 
-1. **Service Won't Start**
-   - Check environment variables are properly set
+1. **API_KEY Environment Variable Error**
+   - **Error**: `ValueError: API_KEY environment variable is not set`
+   - **Solution**: Ensure `API_KEY` is set in Coolify's environment variables section
+   - **Note**: Do NOT use `.env` files with Coolify - set variables directly in the interface
+   - **Verification**: Check that the variable appears in Coolify's environment tab
+
+2. **Service Won't Start**
+   - Check environment variables are properly set in Coolify's interface
    - Verify storage credentials if using cloud storage
    - Check Coolify logs for detailed error messages
+   - Ensure all required variables have values (no empty strings)
 
-2. **Health Check Failing**
+3. **Health Check Failing**
    - Ensure the application is binding to port 8080
    - Check if the `/v1/toolkit/test` endpoint is accessible
    - Verify no firewall issues within the container
+   - Wait for the application to fully start (40 second start period)
 
-3. **Storage Issues**
+4. **Storage Issues**
    - Verify cloud storage credentials and permissions
    - Check bucket names and regions are correct
    - Ensure service account has proper permissions (for GCP)
+   - Test storage connectivity independently if possible
 
 ### Monitoring
 
